@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg-info/
+*.egg
+*.log
+
+# Environment
+vir_env/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.vir_env/
+vir_env/
+*.env
+*.env.*
+
+# Django specific
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# VS Code and IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# OneDrive sync/junk files (since you're using OneDrive)
+~$*
+*.tmp
