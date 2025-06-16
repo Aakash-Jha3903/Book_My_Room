@@ -19,9 +19,12 @@ class HotelVendor(User):
 
 
 
+
 class Ameneties(models.Model):
     name = models.CharField(max_length = 1000)
     icon = models.ImageField(upload_to="hotels")
+    def __str__(self):
+        return str(self.name)
 
 class Hotel(models.Model):
     hotel_name  = models.CharField(max_length = 100)
@@ -33,13 +36,19 @@ class Hotel(models.Model):
     hotel_offer_price = models.FloatField()
     hotel_location = models.TextField()
     is_active = models.BooleanField(default = True)
+    def __str__(self):
+        return self.hotel_name
 
 
 class HotelImages(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete = models.CASCADE , related_name = "hotel_images")
     image = models.ImageField(upload_to="hotels")
+    def __str__(self):
+        return f"Image for {self.hotel.hotel_name}"
 
 class HotelManager(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete = models.CASCADE , related_name = "hotel_managers")
     manager_name = models.CharField(max_length = 100)
     manager_contact = models.CharField(max_length = 100)
+    def __str__(self):
+        return f"{self.manager_name} - {self.hotel.hotel_name}"

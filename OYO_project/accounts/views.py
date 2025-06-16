@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
-from .utils import generateRandomToken, sendEmailToken, sendOTPtoEmail
+from .utils import generateRandomToken, generateSlug, sendEmailToken, sendOTPtoEmail
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -162,7 +162,7 @@ def register_vendor(request):
         phone_number = request.POST.get('phone_number')
 
         hotel_user = HotelUser.objects.filter(
-            Q(email = email) | Q(phone_number  = phone_number)
+            Q(email = email) | Q(phone_number = phone_number)
         )
 
         if hotel_user.exists():
@@ -197,3 +197,41 @@ def dashboard(request):
     hotels = Hotel.objects.filter(hotel_owner=request.user)
     context = {'hotels': hotels}
     return render(request, 'vendor/vendor_dashboard.html', context)
+
+
+@login_required(login_url='login_vendor')
+def add_hotel(request):
+    if request.method == "POST":
+        hotel_name = request.POST.get('hotel_name')
+        hotel_description = request.POST.get('hotel_description')
+        ameneties= request.POST.getlist('ameneties')
+        hotel_price= request.POST.get('hotel_price')
+        hotel_offer_price= request.POST.get('hotel_offer_price')
+        hotel_location= request.POST.get('hotel_location')
+        hotel_slug = generateSlug(hotel_name)
+        print(request.user.id)
+        hotel_vendor = HotelVendor.objects.get(id = request.user.id)
+
+        hotel_obj = Hotel.objects.create(
+            hotel_name = hotel_name,
+            hotel_description = hotel_description,
+            hotel_price = hotel_price,
+            hotel_offer_price = hotel_offer_price,
+            hotel_location = hotel_location,
+            hotel_slug = hotel_slug,
+            hotel_owner = hotel_vendor
+        )
+
+        for ameneti in ameneties:
+            ameneti = Ameneties.objects.get(id = ameneti)
+            hotel_obj.ameneties.add(ameneti)
+            hotel_obj.save()
+
+
+        messages.success(request, "Hotel Created")
+        return redirect('/account/add-hotel/')
+
+
+    ameneties = Ameneties.objects.all()
+
+    return render(request, 'vendor/add_hotel.html', context = {'ameneties' : ameneties})
