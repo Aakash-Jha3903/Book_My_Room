@@ -204,12 +204,12 @@ def add_hotel(request):
     if request.method == "POST":
         hotel_name = request.POST.get('hotel_name')
         hotel_description = request.POST.get('hotel_description')
-        ameneties= request.POST.getlist('ameneties')
+        ameneties= request.POST.get('ameneties')
         hotel_price= request.POST.get('hotel_price')
         hotel_offer_price= request.POST.get('hotel_offer_price')
         hotel_location= request.POST.get('hotel_location')
         hotel_slug = generateSlug(hotel_name)
-        print(request.user.id)
+
         hotel_vendor = HotelVendor.objects.get(id = request.user.id)
 
         hotel_obj = Hotel.objects.create(
@@ -221,15 +221,9 @@ def add_hotel(request):
             hotel_slug = hotel_slug,
             hotel_owner = hotel_vendor
         )
-
-        for ameneti in ameneties:
-            ameneti = Ameneties.objects.get(id = ameneti)
-            hotel_obj.ameneties.add(ameneti)
-            hotel_obj.save()
-
-
+            
         messages.success(request, "Hotel Created")
-        return redirect('/account/add-hotel/')
+        return redirect('/account/dashboard/')
 
 
     ameneties = Ameneties.objects.all()
