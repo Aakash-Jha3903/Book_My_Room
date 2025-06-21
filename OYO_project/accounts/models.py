@@ -52,3 +52,4 @@ class HotelManager(models.Model):
     manager_contact = models.CharField(max_length = 100)
     def __str__(self):
         return f"{self.manager_name} - {self.hotel.hotel_name}"
+
