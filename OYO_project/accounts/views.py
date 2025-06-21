@@ -76,6 +76,10 @@ def login_page(request):
         return redirect('/account/login/')
     return render(request, 'login.html')
 
+def logout_view(request):
+    logout(request)
+    return redirect('/account/login/')
+
 
 
 def verify_email_token(request, token):
