@@ -16,4 +16,5 @@ urlpatterns = [
     path('add-hotel/', views.add_hotel , name="add_hotel"),
   
     path('delete_image/<id>/' , views.delete_image , name="delete_image"),
+    path('edit-hotel/<slug>/', views.edit_hotel , name="edit_hotel"),
 ]
