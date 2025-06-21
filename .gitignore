@@ -27,6 +27,7 @@ vir_env/
 db.sqlite3
 media/
 staticfiles/
+profile/
 
 # VS Code and IDEs
 .vscode/
