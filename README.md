@@ -11,7 +11,6 @@ A **hotel booking and listing platform** inspired by OYO, built using **Python-D
   - [Installation](#installation)
 - [🌐 Features in Detail](#features-in-detail)
 - [📁 Project Structure](#project-structure)
-- [💻 Demo](#demo)
 - [⚡️ Contributing](#contributing)
 - [🌱 Future Scope](#future-scope)
 - [👥 Author](#author)
@@ -46,8 +45,7 @@ A **hotel booking and listing platform** inspired by OYO, built using **Python-D
 ### ⚙️ Installation
 1. **Clone the Repository**  
     ```bash
-    git clone https://github.com/your-username/django-oyo-clone.git
-    cd django-oyo-clone
+    git clone https://github.com/Aakash-Jha3903/Book_My_Room.git
     ```
 
 2. **Create a Virtual Environment**  
@@ -59,6 +57,7 @@ A **hotel booking and listing platform** inspired by OYO, built using **Python-D
 
 3. **Install Dependencies**  
     ```bash
+    cd OYO_project
     pip install -r requirements.txt
     ```
 
@@ -73,6 +72,7 @@ A **hotel booking and listing platform** inspired by OYO, built using **Python-D
 
 5. **Run Migrations**  
     ```bash
+    python manage.py makemigrations
     python manage.py migrate
     ```
 
@@ -89,8 +89,8 @@ A **hotel booking and listing platform** inspired by OYO, built using **Python-D
 ---
 
 ## 🌐 Features in Detail
-- 🏨 **Readme Section:** Displays guides and steps about setting up the project.
 - 🔐 **Authentication:** Registration, Email Verification, and Login with OTP.
+- 🏨 **Readme Section:** Displays guides and steps about setting up the project.
 - 🗄️ **Vendor Dashboard:** Logic for adding/editing hotels and updating details.
 - 📃 **Finalizing Hotels:** Final review and publishing listing.
 - 🖋️ **Flora Editor Integration:** Rich text editor for hotel descriptions.
@@ -98,10 +98,6 @@ A **hotel booking and listing platform** inspired by OYO, built using **Python-D
 
 ---
 
-## 💻 Demo
-*(Add a link or screenshots of your running site if available.)*
-
----
 
 ## ⚡️ Contributing
 Contributions are welcome!  
