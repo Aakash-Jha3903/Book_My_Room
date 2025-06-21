@@ -204,28 +204,69 @@ def add_hotel(request):
     if request.method == "POST":
         hotel_name = request.POST.get('hotel_name')
         hotel_description = request.POST.get('hotel_description')
-        ameneties= request.POST.get('ameneties')
-        hotel_price= request.POST.get('hotel_price')
-        hotel_offer_price= request.POST.get('hotel_offer_price')
-        hotel_location= request.POST.get('hotel_location')
+        hotel_price = request.POST.get('hotel_price')
+        hotel_offer_price = request.POST.get('hotel_offer_price')
+        hotel_location = request.POST.get('hotel_location')
         hotel_slug = generateSlug(hotel_name)
 
-        hotel_vendor = HotelVendor.objects.get(id = request.user.id)
+        amenities = request.POST.getlist('amenities')
+        hotel_vendor = HotelVendor.objects.get(id=request.user.id)
 
+        # Create the hotel first
         hotel_obj = Hotel.objects.create(
-            hotel_name = hotel_name,
-            hotel_description = hotel_description,
-            hotel_price = hotel_price,
-            hotel_offer_price = hotel_offer_price,
-            hotel_location = hotel_location,
-            hotel_slug = hotel_slug,
-            hotel_owner = hotel_vendor
+            hotel_name=hotel_name,
+            hotel_description=hotel_description,
+            hotel_price=hotel_price,
+            hotel_offer_price=hotel_offer_price,
+            hotel_location=hotel_location,
+            hotel_slug=hotel_slug,
+            hotel_owner=hotel_vendor
         )
-            
-        messages.success(request, "Hotel Created")
+
+        # Now add the selected amenities
+        for amenity in amenities:
+            amenity_obj = Ameneties.objects.get(id=amenity)
+            hotel_obj.ameneties.add(amenity_obj)
+
+        hotel_obj.save()
+
+        messages.success(request, "Hotel Created Successfully.")
         return redirect('/account/dashboard/')
 
-
     ameneties = Ameneties.objects.all()
+    return render(request, 'vendor/add_hotel.html', {'ameneties': ameneties})
 
-    return render(request, 'vendor/add_hotel.html', context = {'ameneties' : ameneties})
+
+
+
+@login_required(login_url='login_vendor')
+def upload_images(request, slug):
+    hotel_obj = Hotel.objects.get(hotel_slug = slug)
+    if request.method == "POST":
+        image = request.FILES['image']
+        print(image)
+        HotelImages.objects.create(
+        hotel = hotel_obj,
+        image = image
+        )
+        return HttpResponseRedirect(request.path_info)
+
+    return render(request, 'vendor/upload_images.html', context = {'images' : hotel_obj.hotel_images.all()})
+
+
+@login_required(login_url='login_vendor')
+def delete_image(request, id):
+    print(id)
+    print("#######")
+    hotel_image = HotelImages.objects.get(id = id)
+    hotel_image.delete()
+    messages.success(request, "Hotel Image deleted")
+    return redirect('/account/dashboard/')
+
+
+
+
+
+
+
+
