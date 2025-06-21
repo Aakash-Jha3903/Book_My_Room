@@ -95,9 +95,12 @@ A **hotel booking and listing platform** inspired by OYO, built using **Python-D
 - 📃 **Finalizing Hotels:** Final review and publishing listing.
 - 🖋️ **Flora Editor Integration:** Rich text editor for hotel descriptions.
 
-
 ---
 
+## 🗄️ Database Diagram
+![Database Diagram](OYO_project/Database.jpg)
+
+---
 
 ## ⚡️ Contributing
 Contributions are welcome!  
