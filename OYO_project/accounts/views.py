@@ -3,7 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
 from .utils import generateRandomToken, generateSlug, sendEmailToken, sendOTPtoEmail
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from .models import HotelUser , HotelVendor, Hotel, Ameneties, HotelImages
